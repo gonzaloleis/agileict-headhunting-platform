@@ -1,0 +1,53 @@
+.choose-subscription-container {
+    text-align: center;
+    margin-top: 100px;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.choose-subscription-container h2 {
+    font-size: 36px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+.subscription-options {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.subscription-option {
+    text-align: center;
+    cursor: pointer;
+}
+
+.subscription-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.subscription-image:hover {
+    transform: scale(1.1);
+}
+
+.back-button {
+    background-color: #ccc;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.back-button:hover {
+    background-color: #aaa;
+}

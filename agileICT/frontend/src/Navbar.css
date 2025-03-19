@@ -1,0 +1,29 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e3a8a;
+    padding: 15px 30px; /* Ajusta el padding para crear espacio alrededor de los elementos */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Asegura que el navbar esté por encima de otros elementos */
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.login-btn {
+    background-color: white;
+    color: #1e3a8a;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 30px; /* Añade un margen derecho */
+}

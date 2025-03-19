@@ -1,0 +1,88 @@
+/* CONTENEDOR PRINCIPAL */
+.register-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    max-width: 1200px;
+    margin: 180px auto 50px;
+    text-align: left;
+    overflow-y: auto;
+    max-height: 85vh;
+}
+
+/* FORMULARIO EN DOS COLUMNAS */
+.register-form-container form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+/* QUE LOS INPUTS Y TEXTAREA OCUPEN BIEN SU ESPACIO */
+.register-form-container label {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    color: #333;
+}
+
+.register-form-container input,
+.register-form-container textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+/* TEXTAREA OCUPA UNA FILA ENTERA */
+.register-form-container label:nth-child(odd) {
+    grid-column: span 2;
+}
+
+/* BOTONES AHORA DEBAJO DEL FORMULARIO */
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+    gap: 15px;
+    grid-column: span 2; /* PARA QUE OCUPE TODO EL ANCHO Y QUEDE ABAJO */
+}
+
+/* HACER QUE LOS BOTONES SEAN MÁS PEQUEÑOS */
+.register-form-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: auto; /* AHORA SOLO OCUPAN SU TAMAÑO NATURAL */
+}
+
+/* RESPONSIVE: UNA SOLA COLUMNA EN MÓVILES */
+@media (max-width: 768px) {
+    .register-form-container {
+        max-width: 90%;
+        margin: 140px 20px;
+        padding: 30px;
+    }
+
+    .register-form-container form {
+        grid-template-columns: 1fr;
+    }
+
+    .register-form-container label {
+        grid-column: span 1;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+        grid-column: span 1; /* QUE NO SE VEA TAN ANCHO EN MÓVILES */
+    }
+}

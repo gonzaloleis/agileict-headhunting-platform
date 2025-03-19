@@ -1,0 +1,47 @@
+.register-container-options {
+    text-align: center;
+    margin-top: 100px; /* Ajusta según la altura del navbar */
+    width: 100%;
+    padding: 0 20px; /* Espaciado lateral */
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; /* Apila los elementos en columna */
+    align-items: center; /* Centra horizontalmente */
+}
+
+
+.register-container-options h2 {
+    font-size: 36px; /* Aumenta el tamaño del título */
+    color: #1e3a8a;
+    margin-bottom: 20px; /* Añade un margen inferior */
+}
+
+.register-container-options p {
+    font-size: 20px; /* Aumenta el tamaño del texto */
+    color: #1e3a8a;
+    margin-bottom: 40px; /* Añade un margen inferior */
+}
+
+.options {
+    display: flex;
+    justify-content: center; /* Centra los elementos dentro del contenedor */
+    gap: 40px; /* Añade más espacio entre los elementos */
+}
+
+.option {
+    text-align: center;
+}
+
+.option-image {
+    width: 200px; /* Ajusta el tamaño de las imágenes */
+    height: 200px; /* Ajusta el tamaño de las imágenes */
+    border-radius: 15px; /* Esquinas redondeadas */
+    object-fit: cover; /* Mantiene la relación de aspecto de la imagen */
+    transition: transform 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+.option-image:hover {
+    transform: scale(1.1); /* Aumenta el tamaño al pasar el ratón */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+}

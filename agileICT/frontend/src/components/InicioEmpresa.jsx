@@ -48,6 +48,10 @@ const InicioEmpresa = () => {
                             <option>Competencias clave</option>
                         </select>
                     </div>
+                    <textarea
+                        className="inicio-empresa-textarea"
+                        placeholder="Describe exactamente lo que necesitas"
+                    ></textarea>
                     <button className="inicio-empresa-button">Buscar</button>
                 </div>
             </div>

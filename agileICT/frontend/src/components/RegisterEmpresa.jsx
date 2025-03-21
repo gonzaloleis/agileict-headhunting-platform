@@ -51,7 +51,7 @@ const RegisterEmpresa = () => {
                 const data = await response.json();
                 console.log("Empresa registrada:", data);
                 // Redirigir o mostrar mensaje de éxito
-                navigate('/'); // o a otra ruta de confirmación
+                navigate('/inicio-empresa'); // o a otra ruta de confirmación
             } else {
                 console.error("Error en el registro de la empresa");
             }
@@ -59,7 +59,12 @@ const RegisterEmpresa = () => {
             console.error("Error:", error);
         }
     };
-    
+
+    const prueba = (e) => {
+        e.preventDefault();
+        navigate('/inicio-empresa');
+    };
+
     const handleBackClick = (e) => {
         e.preventDefault();
         navigate('/choose-subscription');
@@ -158,7 +163,7 @@ const RegisterEmpresa = () => {
                             />
                         </label>
                         <div className="button-container">
-                            <button type="submit">Registrarse</button>
+                            <button type="submit" onClick={prueba}>Registrarse</button> {/* Cambiar el método de prueba a submit cuando esté la función hecha */}
                             <button className="back-button" onClick={handleBackClick}>Volver</button>
                         </div>
                     </form>

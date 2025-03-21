@@ -1,0 +1,156 @@
+/* Estilos generales */
+.inicio-empresa {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1e3a8a;
+    color: white;
+    position: fixed;
+    height: 100%;
+    left: -250px; /* Esconder el menú inicialmente */
+    transition: left 0.3s;
+    top: 0;
+    z-index: 999; /* Asegura que el sidebar esté por debajo del navbar */
+}
+
+.sidebar.open {
+    left: 0; /* Mostrar el menú cuando esté abierto */
+}
+
+.sidebar .menu {
+    display: block;
+    margin-top: 60px; /* Añadir margen superior para evitar el navbar */
+}
+
+.sidebar .menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar .menu ul li {
+    padding: 10px;
+}
+
+.sidebar .menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.content {
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left 0.3s;
+    margin-top: 60px; /* Añadir margen superior para evitar el navbar */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar el contenido horizontalmente */
+}
+
+.content.shifted {
+    margin-left: 250px; /* Ajustar el contenido cuando el menú esté abierto */
+}
+
+/* Estilos del botón de toggle */
+.toggle-btn {
+    background-color: #1e3a8a; /* Fondo azul claro */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 10px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000; /* Asegura que el botón esté por encima de otros elementos */
+}
+
+/* Estilos específicos del formulario */
+.inicio-empresa-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar el contenido horizontalmente */
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.inicio-empresa-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1e3a8a; /* text-blue-700 */
+    margin-bottom: 1.5rem;
+}
+
+.inicio-empresa-form-container {
+    background-color: rgba(255, 255, 255, 0.5); /* bg-white bg-opacity-50 */
+    padding: 2rem; /* Aumentar el padding */
+    border-radius: 1.25rem; /* rounded-2xl */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+    width: 100%;
+    max-width: 40rem; /* Aumentar el max-width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar el contenido horizontalmente */
+}
+
+.inicio-empresa-search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem; /* Aumentar el margin-bottom */
+    width: 100%;
+}
+
+.inicio-empresa-search-icon {
+    position: absolute;
+    left: 0.5rem; /* Ajustar la posición */
+    color: #2563eb; /* text-blue-600 */
+    font-size: 1.5rem; /* text-2xl */
+}
+
+.inicio-empresa-input {
+    padding-left: 2.5rem; /* pl-10 */
+    padding: 0.75rem; /* Aumentar el padding */
+    width: 100%;
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    outline: none;
+    transition: box-shadow 0.2s;
+    margin-left: 3rem;
+}
+
+.inicio-empresa-input:focus {
+    box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
+}
+
+.inicio-empresa-select-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem; /* Aumentar el gap */
+    margin-bottom: 1.5rem; /* Aumentar el margin-bottom */
+    width: 100%;
+}
+
+.inicio-empresa-select {
+    padding: 0.75rem; /* Aumentar el padding */
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    width: 100%;
+}
+
+.inicio-empresa-button {
+    padding: 0.75rem 1.5rem; /* Aumentar el padding */
+    background-color: #2563eb; /* bg-blue-600 */
+    color: white;
+    border: none;
+    border-radius: 0.5rem; /* rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: center; /* Centrar el botón */
+}
+
+.inicio-empresa-button:hover {
+    background-color: #1e3a8a; /* bg-blue-700 */
+}

@@ -7,4 +7,5 @@ import es.upm.dit.isst.agileICT.entity.Professional;
 
 @Repository
 public interface ProfessionalRepository extends JpaRepository<Professional, Long> {
+    Professional findByEmail(String email);
 }

@@ -7,4 +7,5 @@ import es.upm.dit.isst.agileICT.entity.Company;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
+    Company findByEmail(String email);
 }

@@ -44,7 +44,7 @@ const RegisterProfesional = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Profesional registrado:", data);
-                navigate('/');
+                navigate('/inicio-profesional');
             } else {
                 console.error("Error en el registro del profesional");
             }

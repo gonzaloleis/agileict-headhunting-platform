@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../RegisterEmpresa.css';
 
-const RegisterEmpresa = () => {
+const RegistroEmpresa = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const plan = queryParams.get('plan');
 
-    // Estado para los campos del formulario
+    // Estado para validaciones
+    const [passwordMessage, setPasswordMessage] = useState('');
+    const [confirmPasswordMessage, setConfirmPasswordMessage] = useState('');
+
+    // Estado del formulario
     const [formData, setFormData] = useState({
         nombreEmpresa: '',
         cif: '',
@@ -18,51 +22,62 @@ const RegisterEmpresa = () => {
         descripcion: '',
         password: '',
         confirmPassword: '',
-        plan: plan, // se obtiene del query
+        plan: plan, // Se obtiene del query
     });
 
-    // Manejar cambios en los inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+
+        if (name === 'password') {
+            if (value.length < 8) {
+                setPasswordMessage('La contraseña debe tener 8 caracteres o más');
+            } else {
+                setPasswordMessage('');
+            }
+        }
+
+        if (name === 'confirmPassword') {
+            if (value !== formData.password) {
+                setConfirmPasswordMessage('Las contraseñas no coinciden');
+            } else {
+                setConfirmPasswordMessage('');
+            }
+        }
     };
 
-    // Manejar envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        // Validar que la contraseña y su confirmación coincidan
-        if (formData.password !== formData.confirmPassword) {
-            alert("Las contraseñas no coinciden");
+
+        if (formData.password.length < 8) {
+            alert('La contraseña debe tener al menos 8 caracteres');
             return;
         }
-    
-        // Crear un objeto que excluya el campo confirmPassword
+        if (formData.password !== formData.confirmPassword) {
+            alert('Las contraseñas no coinciden');
+            return;
+        }
+
         const { confirmPassword, ...dataToSend } = formData;
-    
+
         try {
             const response = await fetch("http://localhost:8080/api/companies/register", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataToSend)
             });
-    
+
             if (response.ok) {
-                const data = await response.json();
-                console.log("Empresa registrada:", data);
-                // Redirigir o mostrar mensaje de éxito
-                navigate('/inicio-empresa'); // o a otra ruta de confirmación
+                navigate('/inicio-empresa');
             } else {
-                console.error("Error en el registro de la empresa");
+                alert('Error en el registro de la empresa');
             }
         } catch (error) {
             console.error("Error:", error);
         }
-    };
-
-    const prueba = (e) => {
-        e.preventDefault();
-        navigate('/inicio-empresa');
     };
 
     const handleBackClick = (e) => {
@@ -72,108 +87,58 @@ const RegisterEmpresa = () => {
 
     const getPlanImage = (plan) => {
         switch (plan) {
-            case 'oro':
-                return '/images/plan_oro.png';
-            case 'plata':
-                return '/images/plan_plata.png';
-            case 'bronce':
-                return '/images/plan_bronce.png';
-            default:
-                return '';
+            case 'oro': return '/images/plan_oro.png';
+            case 'plata': return '/images/plan_plata.png';
+            case 'bronce': return '/images/plan_bronce.png';
+            default: return '';
         }
     };
 
     return (
-        <div className="register-container">
-            <div className="register-content">
-                <div className="form-left">
+        <div className="registro-empresa-container">
+            <div className="registro-empresa-content">
+                <div className="registro-empresa-form-left">
                     <h2>Registro Empresa</h2>
                     <p>Has elegido la suscripción {plan}</p>
                     <form onSubmit={handleSubmit}>
-                        <label>
-                            Nombre de la Empresa:
-                            <input
-                                type="text"
-                                name="nombreEmpresa"
-                                value={formData.nombreEmpresa}
-                                onChange={handleChange}
-                            />
+                        <label>Nombre de la Empresa:
+                            <input type="text" name="nombreEmpresa" value={formData.nombreEmpresa} onChange={handleChange} required />
                         </label>
-                        <label>
-                            CIF:
-                            <input
-                                type="text"
-                                name="cif"
-                                value={formData.cif}
-                                onChange={handleChange}
-                            />
+                        <label>CIF:
+                            <input type="text" name="cif" value={formData.cif} onChange={handleChange} required />
                         </label>
-                        <label>
-                            Email:
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
+                        <label>Email:
+                            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
                         </label>
-                        <label>
-                            Teléfono:
-                            <input
-                                type="tel"
-                                name="telefono"
-                                value={formData.telefono}
-                                onChange={handleChange}
-                            />
+                        <label>Teléfono:
+                            <input type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
                         </label>
-                        <label>
-                            Dirección:
-                            <input
-                                type="text"
-                                name="direccion"
-                                value={formData.direccion}
-                                onChange={handleChange}
-                            />
+                        <label>Dirección:
+                            <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} required />
                         </label>
-                        <label>
-                            Descripción sobre la empresa:
-                            <textarea
-                                name="descripcion"
-                                rows="4"
-                                value={formData.descripcion}
-                                onChange={handleChange}
-                            />
+                        <label>Descripción sobre la empresa:
+                            <textarea name="descripcion" rows="4" value={formData.descripcion} onChange={handleChange} required />
                         </label>
-                        <label>
-                            Contraseña:
-                            <input
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                            />
+                        <label>Contraseña:
+                            <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+                            {passwordMessage && <p className="registro-empresa-error">{passwordMessage}</p>}
                         </label>
-                        <label>
-                            Confirmar contraseña:
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                            />
+                        <label>Confirmar contraseña:
+                            <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                            {confirmPasswordMessage && <p className="registro-empresa-error">{confirmPasswordMessage}</p>}
                         </label>
-                        <div className="button-container">
-                            <button type="submit" onClick={prueba}>Registrarse</button> {/* Cambiar el método de prueba a submit cuando esté la función hecha */}
-                            <button className="back-button" onClick={handleBackClick}>Volver</button>
+                        <div className="registro-empresa-button-container">
+                            <button type="submit">Registrarse</button>
+                            <button className="registro-empresa-back-button" onClick={handleBackClick}>Volver</button>
                         </div>
                     </form>
                 </div>
-                <div className="form-right">
-                    <img src={getPlanImage(plan)} alt={`Plan ${plan}`} className="plan-image" />
+                <div className="registro-empresa-form-right">
+                    <img src={getPlanImage(plan)} alt={`Plan ${plan}`} className="registro-empresa-plan-image" />
                 </div>
             </div>
         </div>
     );
 };
 
-export default RegisterEmpresa;
+export default RegistroEmpresa;

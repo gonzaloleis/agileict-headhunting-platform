@@ -37,7 +37,7 @@ const LoginForm = ({ onClose }) => {
             const result = await response.text();
 
             if (result === 'profesional') {
-                navigate('/InicioEmpresa');
+                navigate('/InicioEmpresa'); //CAMBIAR DE NUEVO A INICIOPROFESIONAL CUANDO ESTE HECHO, ESTO ES SOLO PARA PROBAR
             } else if (result === 'empresa') {
                 navigate('/InicioEmpresa');
             } else {

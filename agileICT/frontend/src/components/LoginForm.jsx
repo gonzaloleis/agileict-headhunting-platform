@@ -37,9 +37,9 @@ const LoginForm = ({ onClose }) => {
             const result = await response.text();
 
             if (result === 'profesional') {
-                navigate('/InicioEmpresa'); //CAMBIAR DE NUEVO A INICIOPROFESIONAL CUANDO ESTE HECHO, ESTO ES SOLO PARA PROBAR
+                navigate('/InicioProfesional'); // MIENTRAS NO ESTE TERMINADO INICIO PROFESIONAL PROBAR CON INICIO EMPRESA 
             } else if (result === 'empresa') {
-                navigate('/InicioEmpresa');
+                navigate('/InicioEmpresa');  //MIENTRAS NO ESTE TERMINADA LA FUNCIONALIDAD DE REGISTRO EMPRESA, PROBAR CON PROFESIONAL (ES EL MISMO CODIGO)
             } else {
                 alert("Correo o contraseña incorrectos");
             }

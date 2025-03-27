@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../RegisterEmpresa.css';
+import { useAuth } from '../context/AuthContext';
 
 const RegistroEmpresa = () => {
     const navigate = useNavigate();
+    const { login } = useAuth(); // Usa el contexto
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const plan = queryParams.get('plan');
@@ -71,6 +74,7 @@ const RegistroEmpresa = () => {
             });
 
             if (response.ok) {
+                login(formData.email);
                 navigate('/inicio-empresa');
             } else {
                 alert('Error en el registro de la empresa');
@@ -128,7 +132,7 @@ const RegistroEmpresa = () => {
                             {confirmPasswordMessage && <p className="registro-empresa-error">{confirmPasswordMessage}</p>}
                         </label>
                         <div className="registro-empresa-button-container">
-                            <button type="submit">Registrarse</button>
+                            <button type="submit" onClick={handleSubmit}>Registrarse</button>
                             <button className="registro-empresa-back-button" onClick={handleBackClick}>Volver</button>
                         </div>
                     </form>

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Importa el contexto
 import '../LoginForm.css';
 
-const LoginForm = ({ setLoggedInEmail, onClose }) => {
+const LoginForm = ({ onClose }) => {
     const navigate = useNavigate();
+    const { login } = useAuth(); // Obtiene la función de login del contexto
     const [formData, setFormData] = useState({ email: '', password: '' });
 
     const handleChange = (e) => {
@@ -21,17 +23,14 @@ const LoginForm = ({ setLoggedInEmail, onClose }) => {
         try {
             const response = await fetch('http://localhost:8080/api/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params
             });
 
             const result = await response.text();
-            
+
             if (result === 'profesional' || result === 'empresa') {
-                setLoggedInEmail(formData.email);
-                localStorage.setItem("loggedInUser", formData.email); // Guardar en localStorage
+                login(formData.email); // Llama al login del contexto
 
                 navigate(result === 'profesional' ? '/inicio-profesional' : '/inicio-empresa');
             } else {
@@ -57,7 +56,7 @@ const LoginForm = ({ setLoggedInEmail, onClose }) => {
                         <input type="password" name="password" value={formData.password} onChange={handleChange} required />
                     </label>
                     <button type="submit">Entrar</button>
-                    <button type="button" onClick={onClose}>Cerrar</button> {/* Botón para cerrar el formulario */}
+                    <button type="button" onClick={onClose}>Cerrar</button> {/* Cierra el formulario */}
                 </form>
             </div>
         </div>

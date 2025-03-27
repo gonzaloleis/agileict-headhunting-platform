@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Importa el contexto
 import "../Navbar.css";
 import LoginForm from "./LoginForm";
 
 const Navbar = () => {
-    const [loggedInEmail, setLoggedInEmail] = useState('');
+    const { user, logout } = useAuth(); // Obtiene el usuario y funciones del contexto
     const [showLoginForm, setShowLoginForm] = useState(false);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem("loggedInUser");
-        if (storedUser) {
-            setLoggedInEmail(storedUser);
-        }
-    }, []);
 
     const handleLoginClick = () => {
         setShowLoginForm(true);
@@ -25,8 +19,7 @@ const Navbar = () => {
     };
 
     const handleLogoutClick = () => {
-        setLoggedInEmail('');
-        localStorage.removeItem("loggedInUser");
+        logout(); // Llama a la función de logout del contexto
         navigate('/');
         setShowLoginForm(false);
     };
@@ -35,7 +28,7 @@ const Navbar = () => {
         <div>
             <nav className="navbar">
                 <h1 className="logo">AgileICT</h1>
-                {loggedInEmail ? (
+                {user ? (
                     <button className="login-btn" onClick={handleLogoutClick}>Cerrar Sesión</button>
                 ) : (
                     !showLoginForm && (
@@ -43,12 +36,11 @@ const Navbar = () => {
                     )
                 )}
             </nav>
-            {showLoginForm && !loggedInEmail && (
-                <LoginForm onClose={handleCloseLoginForm} setLoggedInEmail={setLoggedInEmail} />
+            {showLoginForm && !user && (
+                <LoginForm onClose={handleCloseLoginForm} />
             )}
         </div>
     );
 };
 
 export default Navbar;
-

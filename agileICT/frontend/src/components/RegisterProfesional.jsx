@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../RegisterForm.css';
+import { useAuth } from '../context/AuthContext';
 
 const RegisterProfesional = () => {
     const navigate = useNavigate();
+    const { login } = useAuth(); // Usa el contexto
+
+
+    // Estado para validaciones
+    const [passwordMessage, setPasswordMessage] = useState('');
+    const [confirmPasswordMessage, setConfirmPasswordMessage] = useState('');
 
     const [formData, setFormData] = useState({
         nombre: '',
@@ -21,11 +28,31 @@ const RegisterProfesional = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+
+        if (name === 'password') {
+            if (value.length < 8) {
+                setPasswordMessage('La contraseña debe tener 8 caracteres o más');
+            } else {
+                setPasswordMessage('');
+            }
+        }
+
+        if (name === 'confirmPassword') {
+            if (value !== formData.password) {
+                setConfirmPasswordMessage('Las contraseñas no coinciden');
+            } else {
+                setConfirmPasswordMessage('');
+            }
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (formData.password.length < 8) {
+            alert('La contraseña debe tener al menos 8 caracteres');
+            return;
+        }
         if (formData.password !== formData.confirmPassword) {
             alert("Las contraseñas no coinciden");
             return;
@@ -44,6 +71,7 @@ const RegisterProfesional = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Profesional registrado:", data);
+                login(data.email);
                 navigate('/inicio-profesional');
             } else {
                 console.error("Error en el registro del profesional");
@@ -141,6 +169,7 @@ const RegisterProfesional = () => {
                         value={formData.password}
                         onChange={handleChange}
                     />
+                    {passwordMessage && <p className="registro-empresa-error">{passwordMessage}</p>}
                 </label>
                 <label>
                     Confirmar contraseña:
@@ -150,6 +179,8 @@ const RegisterProfesional = () => {
                         value={formData.confirmPassword}
                         onChange={handleChange}
                     />
+                    {confirmPasswordMessage && <p className="registro-empresa-error">{confirmPasswordMessage}</p>}
+
                 </label>
                 <div className="button-container">
                     <button type="submit">Registrarse</button>

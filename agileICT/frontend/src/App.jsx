@@ -7,26 +7,30 @@ import RegisterEmpresa from "./components/RegisterEmpresa";
 import RegisterProfesional from "./components/RegisterProfesional";
 import InicioEmpresa from "./components/InicioEmpresa"; // Importar el nuevo componente
 import InicioProfesional from "./components/InicioProfesional"; // Importar el nuevo componente
+import { AuthProvider } from './context/AuthContext'; // Importa el contexto
+
 
 import "./App.css"; // Archivo de estilos globales
 
 const App = () => {
   return (
-    <Router>
-      <div className="container">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<RegisterOptions />} />
-          <Route path="/choose-subscription" element={<ChooseSubscription />} />
-          <Route path="/register-empresa" element={<RegisterEmpresa />} />
-          <Route path="/register-profesional" element={<RegisterProfesional />} />
-          <Route path="/inicio-empresa" element={<InicioEmpresa />} /> 
-          <Route path="/inicio-profesional" element={<InicioProfesional />} /> 
+    <AuthProvider>
+      <Router>
+        <div className="container">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<RegisterOptions />} />
+            <Route path="/choose-subscription" element={<ChooseSubscription />} />
+            <Route path="/register-empresa" element={<RegisterEmpresa />} />
+            <Route path="/register-profesional" element={<RegisterProfesional />} />
+            <Route path="/inicio-empresa" element={<InicioEmpresa />} />
+            <Route path="/inicio-profesional" element={<InicioProfesional />} />
 
 
-        </Routes>
-      </div>
-    </Router>
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 

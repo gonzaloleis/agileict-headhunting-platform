@@ -2,22 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../LoginForm.css';
 
-const LoginForm = ({ onClose }) => {
+const LoginForm = ({ setLoggedInEmail, onClose }) => {
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({ email: '', password: '' });
 
-    // 1. Estado para guardar email y contraseña
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
-
-    // 2. Captura los cambios en los campos
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    // 3. Al enviar el formulario, llama al backend
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -35,11 +28,12 @@ const LoginForm = ({ onClose }) => {
             });
 
             const result = await response.text();
+            
+            if (result === 'profesional' || result === 'empresa') {
+                setLoggedInEmail(formData.email);
+                localStorage.setItem("loggedInUser", formData.email); // Guardar en localStorage
 
-            if (result === 'profesional') {
-                navigate('/InicioProfesional'); // MIENTRAS NO ESTE TERMINADO INICIO PROFESIONAL PROBAR CON INICIO EMPRESA 
-            } else if (result === 'empresa') {
-                navigate('/InicioEmpresa');  //MIENTRAS NO ESTE TERMINADA LA FUNCIONALIDAD DE REGISTRO EMPRESA, PROBAR CON PROFESIONAL (ES EL MISMO CODIGO)
+                navigate(result === 'profesional' ? '/inicio-profesional' : '/inicio-empresa');
             } else {
                 alert("Correo o contraseña incorrectos");
             }
@@ -49,7 +43,6 @@ const LoginForm = ({ onClose }) => {
         }
     };
 
-    // 4. Render del formulario
     return (
         <div className="login-form-container">
             <div className="login-form">
@@ -57,29 +50,15 @@ const LoginForm = ({ onClose }) => {
                 <form onSubmit={handleSubmit}>
                     <label>
                         Email:
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
                     </label>
                     <label>
                         Contraseña:
-                        <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
+                        <input type="password" name="password" value={formData.password} onChange={handleChange} required />
                     </label>
                     <button type="submit">Entrar</button>
+                    <button type="button" onClick={onClose}>Cerrar</button> {/* Botón para cerrar el formulario */}
                 </form>
-                {onClose && (
-                    <button className="close-btn" onClick={onClose}>Cerrar</button>
-                )}
             </div>
         </div>
     );

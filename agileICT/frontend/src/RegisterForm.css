@@ -12,6 +12,7 @@
     text-align: left;
     overflow-y: auto;
     max-height: 85vh;
+    margin-top: 300px;
 }
 
 /* FORMULARIO EN DOS COLUMNAS */
@@ -86,3 +87,4 @@
         grid-column: span 1; /* QUE NO SE VEA TAN ANCHO EN MÓVILES */
     }
 }
+

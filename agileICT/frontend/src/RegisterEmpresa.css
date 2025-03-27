@@ -7,15 +7,15 @@ body {
 }
 
 /* Contenedor principal */
-.register-container {
+.registro-empresa-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 220px; /* Espacio debajo del navbar */
+    margin-top: 250px; /* Espacio debajo del navbar */
     margin-bottom: 30px;
 }
 
-.register-content {
+.registro-empresa-content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -25,23 +25,26 @@ body {
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 900px;
-    
     max-height: 80vh; /* Establece un límite de altura */
     overflow-y: auto; /* Habilita el scroll interno */
 }
-.register-container h2 {
-    font-size: 36px; /* Aumenta el tamaño del título */
+
+/* Titulos y textos */
+.registro-empresa-container h2 {
+    font-size: 36px; 
     color: #1e3a8a;
-    margin-bottom: 20px; /* Añade un margen inferior */
+    margin-bottom: 20px;
+    margin-top: 400px;
 }
 
-.register-container p {
-    font-size: 20px; /* Aumenta el tamaño del texto */
+.registro-empresa-container p {
+    font-size: 20px;
     color: #1e3a8a;
-    margin-bottom: 40px; /* Añade un margen inferior */
+    margin-bottom: 40px;
 }
+
 /* Formulario alineado a la izquierda */
-.form-left {
+.registro-empresa-form-left {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -75,14 +78,22 @@ label {
 
 input, textarea {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Mensajes de error */
+.registro-empresa-error {
+    font-size: 0.875rem;
+    color: red;
+    margin-top: 5px;
 }
 
 /* Botones */
-.button-container {
+.registro-empresa-button-container {
     display: flex;
     gap: 10px;
     margin-top: 20px;
@@ -103,26 +114,25 @@ button:hover {
     background-color: #002171;
 }
 
-.back-button {
+.registro-empresa-back-button {
     background-color: #bbbbbb;
 }
 
-.back-button:hover {
+.registro-empresa-back-button:hover {
     background-color: #a1a1a19d;
 }
 
 /* Imagen alineada a la derecha */
-.form-right {
+.registro-empresa-form-right {
     flex: 0 0 150px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.plan-image {
+.registro-empresa-plan-image {
     width: 200px;
     height: 200px;
     border-radius: 15px;
     object-fit: cover;
 }
-

@@ -1,0 +1,65 @@
+.inicio-profesional-container {
+    display: flex;
+}
+
+.inicio-profesional-sidebar {
+    width: 250px;
+    background-color: #1e3a8a;
+    color: white;
+    position: fixed;
+    height: 100%;
+    left: -250px; /* Esconder el menú inicialmente */
+    transition: left 0.3s;
+    top: 0;
+    z-index: 999; /* Asegura que el sidebar esté por debajo del navbar */
+}
+
+.inicio-profesional-sidebar.open {
+    left: 0; /* Mostrar el menú cuando esté abierto */
+}
+
+.inicio-profesional-menu {
+    display: block;
+    margin-top: 60px; /* Añadir margen superior para evitar el navbar */
+}
+
+.inicio-profesional-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.inicio-profesional-menu ul li {
+    padding: 10px;
+}
+
+.inicio-profesional-menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.inicio-profesional-content {
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left 0.3s;
+    margin-top: 60px; /* Añadir margen superior para evitar el navbar */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar el contenido horizontalmente */
+}
+
+.inicio-profesional-content.shifted {
+    margin-left: 250px; /* Ajustar el contenido cuando el menú esté abierto */
+}
+
+.toggle-btn-profesional {
+    background-color: #1e3a8a; /* Fondo azul claro */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 10px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000; /* Asegura que el botón esté por encima de otros elementos */
+}

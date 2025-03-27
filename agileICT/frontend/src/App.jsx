@@ -6,6 +6,7 @@ import ChooseSubscription from "./components/ChooseSubscription";
 import RegisterEmpresa from "./components/RegisterEmpresa";
 import RegisterProfesional from "./components/RegisterProfesional";
 import InicioEmpresa from "./components/InicioEmpresa"; // Importar el nuevo componente
+import InicioProfesional from "./components/InicioProfesional"; // Importar el nuevo componente
 
 import "./App.css"; // Archivo de estilos globales
 
@@ -20,6 +21,8 @@ const App = () => {
           <Route path="/register-empresa" element={<RegisterEmpresa />} />
           <Route path="/register-profesional" element={<RegisterProfesional />} />
           <Route path="/inicio-empresa" element={<InicioEmpresa />} /> 
+          <Route path="/inicio-profesional" element={<InicioProfesional />} /> 
+
 
         </Routes>
       </div>

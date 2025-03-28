@@ -23,7 +23,7 @@ const RegisterProfesional = () => {
         descripcion: '',
         password: '',
         confirmPassword: '',
-        recibirOfertas: 'no',
+        recibirOfertas: false,
     });
 
     const handleChange = (e) => {
@@ -183,7 +183,7 @@ const RegisterProfesional = () => {
                     {confirmPasswordMessage && <p className="registro-empresa-error">{confirmPasswordMessage}</p>}
 
                 </label>
-                <div className="switch-container">
+                <label><div className="switch-container">
                     <label htmlFor="recibirOfertas" className="switch-label">
                         Quiero recibir ofertas
                     </label>
@@ -191,12 +191,12 @@ const RegisterProfesional = () => {
                         <input
                             type="checkbox"
                             name="recibirOfertas"
-                            checked={formData.recibirOfertas === 'sí'}
+                            checked={formData.recibirOfertas}
                             onChange={(e) =>
                                 handleChange({
                                     target: {
                                         name: 'recibirOfertas',
-                                        value: e.target.checked ? 'sí' : 'no',
+                                        value: e.target.checked,
                                     },
                                 })
                             }
@@ -204,6 +204,7 @@ const RegisterProfesional = () => {
                         <span className="slider"></span>
                     </label>
                 </div>
+                </label>
                 <div className="button-container">
                     <button type="submit">Registrarse</button>
                     <button className="back-button" onClick={handleBackClick}>Volver</button>

@@ -47,6 +47,10 @@ public class Professional {
     @Size(min = 8) // Requiere al menos 8 caracteres
     private String password;
 
+    @Column(name = "recibir_ofertas")
+    private boolean recibirOfertas;
+
+
     // Constructor vacío
     public Professional() {
     }
@@ -62,6 +66,7 @@ public class Professional {
         this.especialidad = especialidad;
         this.descripcion = descripcion;
         this.password = password;
+        this.recibirOfertas = recibirOfertas;
     }
 
     // Getters y Setters
@@ -94,4 +99,8 @@ public class Professional {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public boolean isRecibirOfertas() {return recibirOfertas;}
+    public void setRecibirOfertas(boolean recibirOfertas) {this.recibirOfertas = recibirOfertas;}
+    
 }

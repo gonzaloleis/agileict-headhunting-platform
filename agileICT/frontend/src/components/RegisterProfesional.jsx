@@ -23,6 +23,7 @@ const RegisterProfesional = () => {
         descripcion: '',
         password: '',
         confirmPassword: '',
+        recibirOfertas: 'no',
     });
 
     const handleChange = (e) => {
@@ -182,6 +183,27 @@ const RegisterProfesional = () => {
                     {confirmPasswordMessage && <p className="registro-empresa-error">{confirmPasswordMessage}</p>}
 
                 </label>
+                <div className="switch-container">
+                    <label htmlFor="recibirOfertas" className="switch-label">
+                        Quiero recibir ofertas
+                    </label>
+                    <label className="switch">
+                        <input
+                            type="checkbox"
+                            name="recibirOfertas"
+                            checked={formData.recibirOfertas === 'sí'}
+                            onChange={(e) =>
+                                handleChange({
+                                    target: {
+                                        name: 'recibirOfertas',
+                                        value: e.target.checked ? 'sí' : 'no',
+                                    },
+                                })
+                            }
+                        />
+                        <span className="slider"></span>
+                    </label>
+                </div>
                 <div className="button-container">
                     <button type="submit">Registrarse</button>
                     <button className="back-button" onClick={handleBackClick}>Volver</button>

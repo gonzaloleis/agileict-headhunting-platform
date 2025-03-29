@@ -30,7 +30,7 @@ const LoginForm = ({ onClose }) => {
             const result = await response.text();
 
             if (result === 'profesional' || result === 'empresa') {
-                login(formData.email); // Llama al login del contexto
+                login({ email: formData.email, type: result }); // Llama al login del contexto
 
                 navigate(result === 'profesional' ? '/inicio-profesional' : '/inicio-empresa');
             } else {

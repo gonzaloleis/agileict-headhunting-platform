@@ -8,6 +8,7 @@ import RegisterProfesional from "./components/RegisterProfesional";
 import InicioEmpresa from "./components/InicioEmpresa"; // Importar el nuevo componente
 import InicioProfesional from "./components/InicioProfesional"; // Importar el nuevo componente
 import { AuthProvider } from './context/AuthContext'; // Importa el contexto
+import MiPerfil from "./components/MiPerfil"; // Importar el nuevo componente
 
 
 import "./App.css"; // Archivo de estilos globales
@@ -25,7 +26,7 @@ const App = () => {
             <Route path="/register-profesional" element={<RegisterProfesional />} />
             <Route path="/inicio-empresa" element={<InicioEmpresa />} />
             <Route path="/inicio-profesional" element={<InicioProfesional />} />
-
+            <Route path="/mi-perfil" element={<MiPerfil />} />
 
           </Routes>
         </div>

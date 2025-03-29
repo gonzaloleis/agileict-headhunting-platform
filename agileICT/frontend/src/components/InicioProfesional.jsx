@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../InicioProfesional.css';
+import { Link } from 'react-router-dom'; // Importar Link de react-router-dom
+
 
 const InicioProfesional = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -16,7 +18,7 @@ const InicioProfesional = () => {
                     <ul>
                         <li><a href="#">Inicio</a></li>
                         <li><a href="#">Ofertas</a></li>
-                        <li><a href="#">Perfil</a></li>
+                        <li><Link to="/mi-perfil">Perfil</Link></li> {/* Cambiado a Link */}
                     </ul>
                 </nav>
             </div>

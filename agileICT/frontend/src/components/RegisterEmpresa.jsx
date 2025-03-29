@@ -74,7 +74,7 @@ const RegistroEmpresa = () => {
             });
 
             if (response.ok) {
-                login(formData.email);
+                login({ email: formData.email, type: 'empresa' }); // Llama al login del contexto
                 navigate('/inicio-empresa');
             } else {
                 alert('Error en el registro de la empresa');

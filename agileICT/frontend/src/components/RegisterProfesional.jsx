@@ -72,7 +72,7 @@ const RegisterProfesional = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log("Profesional registrado:", data);
-                login(data.email);
+                login({ email: formData.email, type: 'profesional' }); // Llama al login del contexto
                 navigate('/inicio-profesional');
             } else {
                 console.error("Error en el registro del profesional");

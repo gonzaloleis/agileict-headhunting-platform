@@ -4,9 +4,9 @@ import { useAuth } from '../context/AuthContext';
 import '../EditarPerfil.css';
 
 const EditarPerfil = () => {
-    const { user } = useAuth(); // Obtén el usuario desde el contexto
-
+    const { user } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [formData, setFormData] = useState({ ...user });
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -17,9 +17,32 @@ const EditarPerfil = () => {
     }
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        console.log(`Campo ${name} actualizado a: ${value}`);
-        // Aquí puedes manejar los cambios, por ejemplo, enviarlos al backend
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleSave = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/professionals/${user.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error en la actualización');
+            }
+
+            alert('Perfil actualizado correctamente');
+        } catch (error) {
+            console.error('Error al guardar cambios:', error);
+            alert('Error al actualizar el perfil');
+        }
     };
 
     return (
@@ -33,64 +56,34 @@ const EditarPerfil = () => {
                             <nav className="menu">
                                 <ul>
                                     <li><Link to="/buscar-perfiles">Buscar Perfiles</Link></li>
-                                    <li><Link to="/inicio-empresa">Buscar Perfiles</Link></li>
+                                    <li><Link to="/inicio-empresa">Inicio</Link></li>
                                     <li><Link to="/mi-perfil">Mi Perfil</Link></li>
                                 </ul>
                             </nav>
                         </div>
                         <label>
                             <strong>Nombre de la Empresa:</strong>
-                            <input
-                                type="text"
-                                name="nombreEmpresa"
-                                defaultValue={user.nombreEmpresa || ''}
-                                onChange={handleInputChange}
-                            />
+                            <input type="text" name="nombreEmpresa" value={formData.nombreEmpresa || ''} onChange={handleInputChange} />
                         </label>
                         <label>
                             <strong>CIF:</strong>
-                            <input
-                                type="text"
-                                name="cif"
-                                defaultValue={user.cif || ''}
-                                onChange={handleInputChange}
-                            />
+                            <input type="text" name="cif" value={formData.cif || ''} onChange={handleInputChange} />
                         </label>
                         <label>
                             <strong>Email:</strong>
-                            <input
-                                type="email"
-                                name="email"
-                                defaultValue={user.email || ''}
-                                onChange={handleInputChange}
-                                disabled // No editable
-                            />
+                            <input type="email" name="email" value={formData.email || ''} disabled />
                         </label>
                         <label>
                             <strong>Teléfono:</strong>
-                            <input
-                                type="text"
-                                name="telefono"
-                                defaultValue={user.telefono || ''}
-                                onChange={handleInputChange}
-                            />
+                            <input type="text" name="telefono" value={formData.telefono || ''} onChange={handleInputChange} />
                         </label>
                         <label>
                             <strong>Dirección:</strong>
-                            <input
-                                type="text"
-                                name="direccion"
-                                defaultValue={user.direccion || ''}
-                                onChange={handleInputChange}
-                            />
+                            <input type="text" name="direccion" value={formData.direccion || ''} onChange={handleInputChange} />
                         </label>
                         <label>
                             <strong>Descripción sobre la empresa:</strong>
-                            <textarea
-                                name="descripcion"
-                                defaultValue={user.descripcion || ''}
-                                onChange={handleInputChange}
-                            />
+                            <textarea name="descripcion" value={formData.descripcion || ''} onChange={handleInputChange} />
                         </label>
                     </div>
                 ) : (
@@ -101,71 +94,49 @@ const EditarPerfil = () => {
                                 <ul>
                                     <li><a href="#">Inicio</a></li>
                                     <li><Link to="/inicio-profesional">Ofertas</Link></li>
-                                    <li><Link to="/mi-perfil">Perfil</Link></li> {/* Cambiado a Link */}
+                                    <li><Link to="/mi-perfil">Perfil</Link></li>
                                 </ul>
                             </nav>
                         </div>
                         <label>
                             <strong>Nombre:</strong>
-                            <input
-                                type="text"
-                                name="nombre"
-                                defaultValue={user.nombre || ''}
-                                onChange={handleInputChange}
-                            />
+                            <input type="text" name="nombre" value={formData.nombre || ''} onChange={handleInputChange} />
                         </label>
                         <label>
                             <strong>Apellidos:</strong>
-                            <input
-                                type="text"
-                                name="apellidos"
-                                defaultValue={user.apellidos || ''}
-                                onChange={handleInputChange}
-                            />
+                            <input type="text" name="apellidos" value={formData.apellidos || ''} onChange={handleInputChange} />
                         </label>
                         <label>
                             <strong>Email:</strong>
-                            <input
-                                type="email"
-                                name="email"
-                                defaultValue={user.email || ''}
-                                onChange={handleInputChange}
-                                disabled // No editable
-                            />
+                            <input type="email" name="email" value={formData.email || ''} disabled />
                         </label>
                         <label>
                             <strong>Teléfono:</strong>
-                            <input
-                                type="text"
-                                name="telefono"
-                                defaultValue={user.telefono || ''}
-                                onChange={handleInputChange}
-                            />
+                            <input type="text" name="telefono" value={formData.telefono || ''} onChange={handleInputChange} />
                         </label>
                         <label>
-                            <strong>Profesión:</strong>
-                            <input
-                                type="text"
-                                name="profesion"
-                                defaultValue={user.profesion || ''}
-                                onChange={handleInputChange}
-                            />
+                            <strong>Estudios:</strong>
+                            <textarea name="estudios" value={formData.estudios || ''} onChange={handleInputChange} />
+                        </label>
+                        <label>
+                            <strong>Experiencia:</strong>
+                            <input type="number" name="experiencia" value={formData.experiencia || 0} onChange={handleInputChange} />
+                        </label>
+                        <label>
+                            <strong>Especialidad:</strong>
+                            <input type="text" name="especialidad" value={formData.especialidad || ''} onChange={handleInputChange} />
                         </label>
                         <label>
                             <strong>Descripción:</strong>
-                            <textarea
-                                name="descripcion"
-                                defaultValue={user.descripcion || ''}
-                                onChange={handleInputChange}
-                            />
+                            <textarea name="descripcion" value={formData.descripcion || ''} onChange={handleInputChange} />
                         </label>
                         <label>
                             <strong>Quiero recibir ofertas:</strong>
                             <label className="switch">
                                 <input
                                     type="checkbox"
-                                    name="recibeOfertas"
-                                    checked={user.recibeOfertas || false}
+                                    name="recibirOfertas"
+                                    checked={formData.recibirOfertas || false}
                                     onChange={handleInputChange}
                                 />
                                 <span className="slider"></span>
@@ -173,7 +144,7 @@ const EditarPerfil = () => {
                         </label>
                     </div>
                 )}
-                <button className="editar-perfil-save-btn">Guardar Cambios</button>
+                <button className="editar-perfil-save-btn" onClick={handleSave}>Guardar Cambios</button>
             </div>
         </div>
     );

@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import '../MiPerfil.css';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const MiPerfil = () => {
+    const navigate = useNavigate(); // Hook para navegar entre páginas
+
+    const handleNavigate = () => {
+        navigate('/editar-perfil'); // Navegar a la página "/inicio-empresa"
+    };
+
     const { user } = useAuth(); // Obtener el usuario logueado desde el contexto
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -27,8 +35,8 @@ const MiPerfil = () => {
                             <nav className="menu">
                                 <ul>
                                     <li><Link to="/buscar-perfiles">Buscar Perfiles</Link></li>
+                                    <li><Link to="/inicio-empresa">Buscar Perfiles</Link></li>
                                     <li><Link to="/mi-perfil">Mi Perfil</Link></li>
-                                    <li><Link to="/ajustes">Ajustes</Link></li>
                                 </ul>
                             </nav>
                         </div>
@@ -37,7 +45,7 @@ const MiPerfil = () => {
                         <p><strong>Email:</strong> {user.email}</p>
                         <p><strong>Teléfono:</strong> {user.telefono || 'Teléfono no disponible'}</p>
                         <p><strong>Dirección:</strong> {user.direccion || 'Dirección no disponible'}</p>
-                        <p><strong>Descripción:</strong> {user.descripcion || 'Descripción no disponible'}</p>
+                        <p><strong>Descripción sobre la empresa:</strong> {user.descripcion || 'Descripción no disponible'}</p>
                     </div>
                 ) : (
                     <div className="mi-perfil-info">
@@ -46,7 +54,7 @@ const MiPerfil = () => {
                             <nav className="inicio-profesional-menu">
                                 <ul>
                                     <li><a href="#">Inicio</a></li>
-                                    <li><a href="#">Ofertas</a></li>
+                                    <li><Link to="/inicio-profesional">Ofertas</Link></li>
                                     <li><Link to="/mi-perfil">Perfil</Link></li> {/* Cambiado a Link */}
                                 </ul>
                             </nav>
@@ -57,9 +65,11 @@ const MiPerfil = () => {
                         <p><strong>Teléfono:</strong> {user.telefono || 'Teléfono no disponible'}</p>
                         <p><strong>Profesión:</strong> {user.profesion || 'Profesión no disponible'}</p>
                         <p><strong>Descripción:</strong> {user.descripcion || 'Descripción no disponible'}</p>
+                        <p><strong>Quiero recibir ofertas:</strong> {user.recibeOfertas || 'Ofertas no disponible'}</p>
+
                     </div>
                 )}
-                <button className="mi-perfil-edit-btn">Editar Perfil</button>
+                <button className="mi-perfil-edit-btn" onClick={handleNavigate}>Editar Perfil</button>
             </div>
         </div>
     );

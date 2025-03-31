@@ -169,3 +169,39 @@
 .inicio-empresa-textarea:focus {
     box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
 }
+
+
+.inicio-empresa-select-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 0.5rem; /* Espaciado entre las columnas y filas */
+    margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.inicio-empresa-select-group {
+    display: flex;
+    flex-direction: column; /* Alinear etiqueta y selector verticalmente */
+}
+
+.inicio-empresa-label {
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+.inicio-empresa-select {
+    padding: 0.25rem;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    transition: box-shadow 0.2s;
+}
+
+.inicio-empresa-select:focus {
+    box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
+    outline: none;
+}

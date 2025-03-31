@@ -9,6 +9,7 @@ import InicioEmpresa from "./components/InicioEmpresa"; // Importar el nuevo com
 import InicioProfesional from "./components/InicioProfesional"; // Importar el nuevo componente
 import { AuthProvider } from './context/AuthContext'; // Importa el contexto
 import MiPerfil from "./components/MiPerfil"; // Importar el nuevo componente
+import EditarPerfil from "./components/EditarPerfil";
 
 
 import "./App.css"; // Archivo de estilos globales
@@ -27,6 +28,8 @@ const App = () => {
             <Route path="/inicio-empresa" element={<InicioEmpresa />} />
             <Route path="/inicio-profesional" element={<InicioProfesional />} />
             <Route path="/mi-perfil" element={<MiPerfil />} />
+            <Route path="/editar-perfil" element={<EditarPerfil />} />
+
 
           </Routes>
         </div>

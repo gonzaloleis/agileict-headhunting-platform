@@ -1,6 +1,8 @@
 package es.upm.dit.isst.agileICT.controller;
 
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +29,34 @@ public class ProfessionalController {
         this.professionalRepository = professionalRepository;
     }
 
+    // @PostMapping("/register")
+    // public ResponseEntity<Professional> registerProfessional(@RequestBody
+    // Professional professional) {
+    // // Aquí también puedes incluir validaciones y manejo de la contraseña
+    // Professional savedProfessional = professionalRepository.save(professional);
+    // return new ResponseEntity<>(savedProfessional, HttpStatus.CREATED);
+    // }
     @PostMapping("/register")
-    public ResponseEntity<Professional> registerProfessional(@RequestBody Professional professional) {
-        // Aquí también puedes incluir validaciones y manejo de la contraseña
+    public ResponseEntity<?> registerProfessional(@RequestBody Professional professional) {
+        // Verificar si el email ya está registrado
+        if (professionalRepository.findByEmail(professional.getEmail()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El email ya está en uso");
+        }
+
+        // Guardar el profesional en la base de datos
+        professional.setId(null); // Asegurar que se genere un nuevo ID
         Professional savedProfessional = professionalRepository.save(professional);
-        return new ResponseEntity<>(savedProfessional, HttpStatus.CREATED);
+        savedProfessional.setPassword(null); // No devolver la contraseña
+
+        // Crear la respuesta con el tipo y el usuario
+        Map<String, Object> response = new HashMap<>();
+        response.put("tipo", "profesional");
+        response.put("usuario", savedProfessional);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
-
-@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Professional> getProfessional(@PathVariable Long id) {
         Optional<Professional> optional = professionalRepository.findById(id);
         if (optional.isPresent()) {

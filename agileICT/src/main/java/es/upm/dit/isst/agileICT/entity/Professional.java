@@ -27,19 +27,18 @@ public class Professional {
     @Column(length = 15) // Máximo 15 caracteres (con código internacional)
     private String telefono;
 
-    @Lob // Indica que se almacenará como TEXT en la BD
+    @Lob // Almacena cadenas largas
     @Column(columnDefinition = "TEXT")
     private String estudios;
 
-    @Lob // Indica que se almacenará como TEXT en la BD
-    @Column(columnDefinition = "TEXT")
+    // Campo numérico: eliminamos @Lob y columnDefinition ya que no es necesario para enteros
     private int experiencia;
 
-    @Lob // Indica que se almacenará como TEXT en la BD
+    @Lob
     @Column(columnDefinition = "TEXT")
     private String especialidad;
     
-    @Lob // Indica que se almacenará como TEXT en la BD
+    @Lob
     @Column(columnDefinition = "TEXT")
     private String descripcion;
     
@@ -50,12 +49,11 @@ public class Professional {
     @Column(name = "recibir_ofertas")
     private boolean recibirOfertas;
 
-
     // Constructor vacío
     public Professional() {
     }
 
-    // Constructor con parámetros
+    // Constructor con parámetros (sin el campo recibirOfertas, ya que no se recibe en el constructor)
     public Professional(String nombre, String apellidos, String email, String telefono, String estudios, int experiencia, String especialidad, String descripcion, String password) {
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -66,41 +64,84 @@ public class Professional {
         this.especialidad = especialidad;
         this.descripcion = descripcion;
         this.password = password;
-        this.recibirOfertas = recibirOfertas;
     }
 
     // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public Long getId() { 
+        return id; 
+    }
+    public void setId(Long id) { 
+        this.id = id; 
+    }
 
-    public String getApellidos() { return apellidos; }
-    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
+    public String getNombre() { 
+        return nombre; 
+    }
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getApellidos() { 
+        return apellidos; 
+    }
+    public void setApellidos(String apellidos) { 
+        this.apellidos = apellidos; 
+    }
 
-    public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getEmail() { 
+        return email; 
+    }
+    public void setEmail(String email) { 
+        this.email = email; 
+    }
 
-    public String getEstudios() { return estudios; }
-    public void setEstudios(String estudios) { this.estudios = estudios; }
+    public String getTelefono() { 
+        return telefono; 
+    }
+    public void setTelefono(String telefono) { 
+        this.telefono = telefono; 
+    }
 
-    public int getExperiencia() { return experiencia; }
-    public void setExperiencia(int experiencia) { this.experiencia = experiencia; }
+    public String getEstudios() { 
+        return estudios; 
+    }
+    public void setEstudios(String estudios) { 
+        this.estudios = estudios; 
+    }
 
-    public String getEspecialidad() { return especialidad; }
-    public void setEspecialidad(String especialidad) { this.especialidad = especialidad; }
+    public int getExperiencia() { 
+        return experiencia; 
+    }
+    public void setExperiencia(int experiencia) { 
+        this.experiencia = experiencia; 
+    }
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getEspecialidad() { 
+        return especialidad; 
+    }
+    public void setEspecialidad(String especialidad) { 
+        this.especialidad = especialidad; 
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getDescripcion() { 
+        return descripcion; 
+    }
+    public void setDescripcion(String descripcion) { 
+        this.descripcion = descripcion; 
+    }
 
-    public boolean isRecibirOfertas() {return recibirOfertas;}
-    public void setRecibirOfertas(boolean recibirOfertas) {this.recibirOfertas = recibirOfertas;}
-    
+    public String getPassword() { 
+        return password; 
+    }
+    public void setPassword(String password) { 
+        this.password = password; 
+    }
+
+    public boolean isRecibirOfertas() { 
+        return recibirOfertas; 
+    }
+    public void setRecibirOfertas(boolean recibirOfertas) { 
+        this.recibirOfertas = recibirOfertas; 
+    }
 }

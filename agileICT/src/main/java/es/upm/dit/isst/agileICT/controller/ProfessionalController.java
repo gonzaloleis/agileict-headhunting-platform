@@ -29,13 +29,6 @@ public class ProfessionalController {
         this.professionalRepository = professionalRepository;
     }
 
-    // @PostMapping("/register")
-    // public ResponseEntity<Professional> registerProfessional(@RequestBody
-    // Professional professional) {
-    // // Aquí también puedes incluir validaciones y manejo de la contraseña
-    // Professional savedProfessional = professionalRepository.save(professional);
-    // return new ResponseEntity<>(savedProfessional, HttpStatus.CREATED);
-    // }
     @PostMapping("/register")
     public ResponseEntity<?> registerProfessional(@RequestBody Professional professional) {
         // Verificar si el email ya está registrado
@@ -66,7 +59,7 @@ public class ProfessionalController {
         }
     }
 
-    // NUEVO: ACTUALIZAR PERFIL POR ID
+    // Endpoint para actualizar el perfil (actualización parcial)
     @PutMapping("/{id}")
     public ResponseEntity<Professional> updateProfessional(
             @PathVariable Long id,
@@ -79,16 +72,35 @@ public class ProfessionalController {
 
         Professional professional = optional.get();
 
-        // Actualizar campos
-        professional.setNombre(updatedData.getNombre());
-        professional.setApellidos(updatedData.getApellidos());
-        professional.setEmail(updatedData.getEmail());
-        professional.setTelefono(updatedData.getTelefono());
-        professional.setEstudios(updatedData.getEstudios());
-        professional.setExperiencia(updatedData.getExperiencia());
-        professional.setEspecialidad(updatedData.getEspecialidad());
-        professional.setDescripcion(updatedData.getDescripcion());
-        professional.setPassword(updatedData.getPassword());
+        if (updatedData.getNombre() != null) {
+            professional.setNombre(updatedData.getNombre());
+        }
+        if (updatedData.getApellidos() != null) {
+            professional.setApellidos(updatedData.getApellidos());
+        }
+        if (updatedData.getEmail() != null) {
+            professional.setEmail(updatedData.getEmail());
+        }
+        if (updatedData.getTelefono() != null) {
+            professional.setTelefono(updatedData.getTelefono());
+        }
+        if (updatedData.getEstudios() != null) {
+            professional.setEstudios(updatedData.getEstudios());
+        }
+        // Para el campo experiencia se asume que 0 indica "no actualizar"
+        if (updatedData.getExperiencia() != 0) {
+            professional.setExperiencia(updatedData.getExperiencia());
+        }
+        if (updatedData.getEspecialidad() != null) {
+            professional.setEspecialidad(updatedData.getEspecialidad());
+        }
+        if (updatedData.getDescripcion() != null) {
+            professional.setDescripcion(updatedData.getDescripcion());
+        }
+        if (updatedData.getPassword() != null) {
+            professional.setPassword(updatedData.getPassword());
+        }
+        // Actualizamos el campo booleano directamente
         professional.setRecibirOfertas(updatedData.isRecibirOfertas());
 
         professionalRepository.save(professional);

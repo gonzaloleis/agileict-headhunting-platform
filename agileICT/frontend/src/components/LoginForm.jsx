@@ -20,25 +20,46 @@ const LoginForm = ({ onClose }) => {
         params.append('email', formData.email);
         params.append('password', formData.password);
 
+        // try {
+        //     const response = await fetch('http://localhost:8080/api/login', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //         body: params
+        //     });
+
+        //     const result = await response.text();
+
+        //     if (result === 'profesional' || result === 'empresa') {
+        //         login({ email: formData.email, type: result }); // Llama al login del contexto
+
+        //         navigate(result === 'profesional' ? '/inicio-profesional' : '/inicio-empresa');
+        //     } else {
+        //         alert("Correo o contraseña incorrectos");
+        //     }
+        // } catch (error) {
+        //     console.error("Error en el login:", error);
+        //     alert("Error de conexión con el servidor");
+        // }
         try {
-            const response = await fetch('http://localhost:8080/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            const response = await fetch("http://localhost:8080/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: params
             });
-
-            const result = await response.text();
-
-            if (result === 'profesional' || result === 'empresa') {
-                login({ email: formData.email, type: result }); // Llama al login del contexto
-
-                navigate(result === 'profesional' ? '/inicio-profesional' : '/inicio-empresa');
-            } else {
+    
+            if (!response.ok) {
                 alert("Correo o contraseña incorrectos");
+                return;
             }
+    
+            const { tipo, usuario } = await response.json(); // Extrae el tipo y el usuario
+    
+            login({ ...usuario, tipo }); // Guarda el usuario con el tipo en el contexto
+    
+            navigate(tipo === "profesional" ? "/inicio-profesional" : "/inicio-empresa");
         } catch (error) {
-            console.error("Error en el login:", error);
-            alert("Error de conexión con el servidor");
+            console.error("Error al iniciar sesión:", error);
+            alert("Ocurrió un error al intentar iniciar sesión.");
         }
     };
 

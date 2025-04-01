@@ -66,21 +66,42 @@ const RegistroEmpresa = () => {
 
         const { confirmPassword, ...dataToSend } = formData;
 
+        // try {
+        //     const response = await fetch("http://localhost:8080/api/companies/register", {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify(dataToSend)
+        //     });
+
+        //     if (response.ok) {
+        //         login({ email: formData.email, type: 'empresa' }); // Llama al login del contexto
+        //         navigate('/inicio-empresa');
+        //     } else {
+        //         alert('Error en el registro de la empresa');
+        //     }
+        // } catch (error) {
+        //     console.error("Error:", error);
+        // }
         try {
             const response = await fetch("http://localhost:8080/api/companies/register", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(dataToSend)
             });
-
-            if (response.ok) {
-                login({ email: formData.email, type: 'empresa' }); // Llama al login del contexto
-                navigate('/inicio-empresa');
-            } else {
-                alert('Error en el registro de la empresa');
+    
+            if (!response.ok) {
+                alert("Error en el registro de la empresa");
+                return;
             }
+    
+            const { tipo, usuario } = await response.json(); // Extraer tipo y usuario de la respuesta
+    
+            login({ ...usuario, tipo }); // Guardar en el contexto
+    
+            navigate("/inicio-empresa");
         } catch (error) {
             console.error("Error:", error);
+            alert("Ocurrió un error al registrar la empresa.");
         }
     };
 

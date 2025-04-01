@@ -28,7 +28,7 @@ const MiPerfil = () => {
         <div className="mi-perfil-container">
             <div className="mi-perfil-card">
                 <h1 className="mi-perfil-title">Mi Perfil</h1>
-                {user.type === 'empresa' ? (
+                {user.tipo === 'empresa' ? (
                     <div className="mi-perfil-info">
                         <button className="toggle-btn" onClick={toggleMenu}>☰</button>
                         <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
@@ -63,7 +63,7 @@ const MiPerfil = () => {
                         <p><strong>Apellidos:</strong> {user.apellidos || 'Apellidos no disponibles'}</p>
                         <p><strong>Email:</strong> {user.email}</p>
                         <p><strong>Teléfono:</strong> {user.telefono || 'Teléfono no disponible'}</p>
-                        <p><strong>Profesión:</strong> {user.profesion || 'Profesión no disponible'}</p>
+                        <p><strong>Estudios:</strong> {user.estudios || 'Profesión no disponible'}</p>
                         <p><strong>Descripción:</strong> {user.descripcion || 'Descripción no disponible'}</p>
                         <p><strong>Quiero recibir ofertas:</strong> {user.recibeOfertas || 'Ofertas no disponible'}</p>
 

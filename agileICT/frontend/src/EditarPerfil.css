@@ -47,6 +47,13 @@
     font-size: 1rem;
 }
 
+/* Botones */
+.editar-perfil-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
 /* Botón de guardar */
 .editar-perfil-save-btn {
     display: block;
@@ -63,4 +70,13 @@
 
 .editar-perfil-save-btn:hover {
     background-color: #1e3a8a; /* Azul más oscuro */
+}
+
+.editar-perfil-back-btn {
+    background-color: #e5e7eb; /* Gris claro */
+    color: #333;
+}
+
+.editar-perfil-back-btn:hover {
+    background-color: #d1d5db; /* Gris más oscuro */
 }

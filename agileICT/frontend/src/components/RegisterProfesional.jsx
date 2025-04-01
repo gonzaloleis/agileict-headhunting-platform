@@ -62,23 +62,44 @@ const RegisterProfesional = () => {
         // Extraer confirmPassword del objeto para no enviarlo al backend
         const { confirmPassword, ...dataToSend } = formData;
 
+        // try {
+        //     const response = await fetch("http://localhost:8080/api/professionals/register", {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify(dataToSend)
+        //     });
+
+        //     if (response.ok) {
+        //         const data = await response.json();
+        //         console.log("Profesional registrado:", data);
+        //         login({ email: formData.email, type: 'profesional' }); // Llama al login del contexto
+        //         navigate('/inicio-profesional');
+        //     } else {
+        //         console.error("Error en el registro del profesional");
+        //     }
+        // } catch (error) {
+        //     console.error("Error:", error);
+        // }
         try {
             const response = await fetch("http://localhost:8080/api/professionals/register", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataToSend)
             });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log("Profesional registrado:", data);
-                login({ email: formData.email, type: 'profesional' }); // Llama al login del contexto
-                navigate('/inicio-profesional');
-            } else {
-                console.error("Error en el registro del profesional");
+    
+            if (!response.ok) {
+                alert("Error en el registro de la empresa");
+                return;
             }
+    
+            const { tipo, usuario } = await response.json(); // Extraer tipo y usuario de la respuesta
+    
+            login({ ...usuario, tipo }); // Guardar en el contexto
+    
+            navigate("/inicio-profesional");
         } catch (error) {
             console.error("Error:", error);
+            alert("Ocurrió un error al registrar el profesional.");
         }
     };
 

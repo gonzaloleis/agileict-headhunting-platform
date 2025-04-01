@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../EditarPerfil.css';
 
 const EditarPerfil = () => {
     const { user } = useAuth();
+    const navigate = useNavigate(); // Hook para navegar entre páginas
     const [menuOpen, setMenuOpen] = useState(false);
     const [formData, setFormData] = useState({ ...user });
 
@@ -22,6 +23,10 @@ const EditarPerfil = () => {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+    };
+
+    const handleBack = () => {
+        navigate('/mi-perfil'); // Navegar a la página de perfil
     };
 
     const handleSave = async () => {
@@ -49,7 +54,7 @@ const EditarPerfil = () => {
         <div className="editar-perfil-container">
             <div className="editar-perfil-card">
                 <h1 className="editar-perfil-title">Editar Perfil</h1>
-                {user.type === 'empresa' ? (
+                {user.tipo === 'empresa' ? (
                     <div className="editar-perfil-info">
                         <button className="toggle-btn" onClick={toggleMenu}>☰</button>
                         <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
@@ -145,6 +150,9 @@ const EditarPerfil = () => {
                     </div>
                 )}
                 <button className="editar-perfil-save-btn" onClick={handleSave}>Guardar Cambios</button>
+                <button className="editar-perfil-back-btn" onClick={handleBack}>
+                        Volver
+                    </button>
             </div>
         </div>
     );

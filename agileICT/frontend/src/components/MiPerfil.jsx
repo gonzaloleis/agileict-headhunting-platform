@@ -65,8 +65,7 @@ const MiPerfil = () => {
                         <p><strong>Teléfono:</strong> {user.telefono || 'Teléfono no disponible'}</p>
                         <p><strong>Estudios:</strong> {user.estudios || 'Profesión no disponible'}</p>
                         <p><strong>Descripción:</strong> {user.descripcion || 'Descripción no disponible'}</p>
-                        <p><strong>Quiero recibir ofertas:</strong> {user.recibeOfertas || 'Ofertas no disponible'}</p>
-
+                        <p><strong>Quiero recibir ofertas:</strong> {user.recibirOfertas ? 'Sí' : 'No'}</p>
                     </div>
                 )}
                 <button className="mi-perfil-edit-btn" onClick={handleNavigate}>Editar Perfil</button>

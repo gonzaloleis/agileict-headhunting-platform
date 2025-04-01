@@ -5,6 +5,7 @@ import '../EditarPerfil.css';
 
 const EditarPerfil = () => {
     const { user } = useAuth();
+    const { login } = useAuth(); // Usa el contexto
     const navigate = useNavigate(); // Hook para navegar entre páginas
     const [menuOpen, setMenuOpen] = useState(false);
     const [formData, setFormData] = useState({ ...user });
@@ -42,6 +43,12 @@ const EditarPerfil = () => {
             if (!response.ok) {
                 throw new Error('Error en la actualización');
             }
+
+            const { tipo, usuario } = await response.json(); // Extrae el tipo y el usuario
+    
+            login({ ...usuario, tipo }); // Guarda el usuario con el tipo en el contexto
+    
+            navigate("/mi-perfil");
 
             alert('Perfil actualizado correctamente');
         } catch (error) {

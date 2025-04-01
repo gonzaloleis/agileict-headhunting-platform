@@ -60,8 +60,54 @@ public class ProfessionalController {
     }
 
     // Endpoint para actualizar el perfil (actualización parcial)
+    // @PutMapping("/{id}")
+    // public ResponseEntity<Professional> updateProfessional(
+    // @PathVariable Long id,
+    // @RequestBody Professional updatedData) {
+
+    // Optional<Professional> optional = professionalRepository.findById(id);
+    // if (!optional.isPresent()) {
+    // return ResponseEntity.notFound().build();
+    // }
+
+    // Professional professional = optional.get();
+
+    // if (updatedData.getNombre() != null) {
+    // professional.setNombre(updatedData.getNombre());
+    // }
+    // if (updatedData.getApellidos() != null) {
+    // professional.setApellidos(updatedData.getApellidos());
+    // }
+    // if (updatedData.getEmail() != null) {
+    // professional.setEmail(updatedData.getEmail());
+    // }
+    // if (updatedData.getTelefono() != null) {
+    // professional.setTelefono(updatedData.getTelefono());
+    // }
+    // if (updatedData.getEstudios() != null) {
+    // professional.setEstudios(updatedData.getEstudios());
+    // }
+    // // Para el campo experiencia se asume que 0 indica "no actualizar"
+    // if (updatedData.getExperiencia() != 0) {
+    // professional.setExperiencia(updatedData.getExperiencia());
+    // }
+    // if (updatedData.getEspecialidad() != null) {
+    // professional.setEspecialidad(updatedData.getEspecialidad());
+    // }
+    // if (updatedData.getDescripcion() != null) {
+    // professional.setDescripcion(updatedData.getDescripcion());
+    // }
+    // if (updatedData.getPassword() != null) {
+    // professional.setPassword(updatedData.getPassword());
+    // }
+    // // Actualizamos el campo booleano directamente
+    // professional.setRecibirOfertas(updatedData.isRecibirOfertas());
+
+    // professionalRepository.save(professional);
+    // return ResponseEntity.ok(professional);
+    // }
     @PutMapping("/{id}")
-    public ResponseEntity<Professional> updateProfessional(
+    public ResponseEntity<?> updateProfessional(
             @PathVariable Long id,
             @RequestBody Professional updatedData) {
 
@@ -103,7 +149,15 @@ public class ProfessionalController {
         // Actualizamos el campo booleano directamente
         professional.setRecibirOfertas(updatedData.isRecibirOfertas());
 
-        professionalRepository.save(professional);
-        return ResponseEntity.ok(professional);
+        Professional updatedProfessional = professionalRepository.save(professional);
+        updatedProfessional.setPassword(null); // No devolver la contraseña
+
+        // Estructurar la respuesta como en el registro
+        Map<String, Object> response = new HashMap<>();
+        response.put("tipo", "profesional");
+        response.put("usuario", updatedProfessional);
+
+        return ResponseEntity.ok(response);
     }
+
 }
